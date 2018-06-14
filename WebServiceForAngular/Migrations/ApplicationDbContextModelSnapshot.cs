@@ -9,7 +9,7 @@ using WebServiceForAngular.Models;
 namespace WebServiceForAngular.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class DBforAngularContextModelSnapshot : ModelSnapshot
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -129,7 +129,7 @@ namespace WebServiceForAngular.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WebServiceAng.DAL.Entities.AppUser", b =>
+            modelBuilder.Entity("WebServiceForAngular.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -159,6 +159,8 @@ namespace WebServiceForAngular.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
+
+                    b.Property<string>("Phone");
 
                     b.Property<string>("PhoneNumber");
 
@@ -238,7 +240,7 @@ namespace WebServiceForAngular.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WebServiceAng.DAL.Entities.AppUser")
+                    b.HasOne("WebServiceForAngular.Models.AppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -246,7 +248,7 @@ namespace WebServiceForAngular.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WebServiceAng.DAL.Entities.AppUser")
+                    b.HasOne("WebServiceForAngular.Models.AppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -259,7 +261,7 @@ namespace WebServiceForAngular.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("WebServiceAng.DAL.Entities.AppUser")
+                    b.HasOne("WebServiceForAngular.Models.AppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -267,7 +269,7 @@ namespace WebServiceForAngular.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WebServiceAng.DAL.Entities.AppUser")
+                    b.HasOne("WebServiceForAngular.Models.AppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -283,7 +285,7 @@ namespace WebServiceForAngular.Migrations
 
             modelBuilder.Entity("WebServiceForAngular.Models.User", b =>
                 {
-                    b.HasOne("WebServiceAng.DAL.Entities.AppUser", "Identity")
+                    b.HasOne("WebServiceForAngular.Models.AppUser", "Identity")
                         .WithMany()
                         .HasForeignKey("IdentityId");
                 });

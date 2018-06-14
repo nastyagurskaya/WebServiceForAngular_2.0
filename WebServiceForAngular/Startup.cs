@@ -33,7 +33,7 @@ namespace WebServiceForAngular
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = @"Data Source=NASTYUHA;Initial Catalog=DBforAngular;Integrated Security=True";
+            var connection = @"Data Source=NASTYUHA;Initial Catalog=UserPostDB;Integrated Security=True";
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("WebServiceForAngular")));
             services.AddIdentity<AppUser, IdentityRole>()
           .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -102,11 +102,20 @@ namespace WebServiceForAngular
             });
             builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
             builder.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders", 
 
+
+                      b =>
+                      {
+                          b.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                      });
+            });
             services.AddAutoMapper();
-            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
-            ////services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
-            //services.AddMvc();/*.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);*/
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>()).AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

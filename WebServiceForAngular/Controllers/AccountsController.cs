@@ -35,7 +35,7 @@ namespace WebServiceForAngular.Controllers
 
             //if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
 
-            await _appDbContext.User.AddAsync(new User { IdentityId = userIdentity.Id });
+            await _appDbContext.User.AddAsync(new User { IdentityId = userIdentity.Id, Email = userIdentity.Email, Name = userIdentity.FirstName + " " + userIdentity.LastName, Username = userIdentity.UserName, Phone = userIdentity.PhoneNumber });
             await _appDbContext.SaveChangesAsync();
 
             return new OkObjectResult("Account created");
